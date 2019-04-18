@@ -6,3 +6,7 @@
 2019-04-17 00:04:55,319:INFO: - done.
 2019-04-17 00:04:55,321:INFO: Starting evaluation
 2019-04-17 00:04:55,404:INFO: - Eval metrics : accuracy: 0.949 ; loss: 0.154
+2019-04-18 19:45:46,022:INFO: Creating the dataset...
+2019-04-18 19:45:46,030:INFO: - done.
+2019-04-18 19:45:46,235:INFO: Starting evaluation
+2019-04-18 19:45:46,331:INFO: - Eval metrics : accuracy: 0.884 ; f1_score: 0.813 ; loss: 0.377

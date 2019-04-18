@@ -118,7 +118,7 @@ def train_and_evaluate(model, train_data, val_data, optimizer, loss_fn, metrics,
         val_data_iterator = data_loader.data_iterator(val_data, params, shuffle=False)
         val_metrics = evaluate(model, loss_fn, val_data_iterator, metrics, params, num_steps)
 
-        val_acc = val_metrics['accuracy']
+        val_acc = val_metrics['f1_score']
         is_best = val_acc >= best_val_acc
 
         # Save weights
@@ -130,7 +130,7 @@ def train_and_evaluate(model, train_data, val_data, optimizer, loss_fn, metrics,
 
         # If best_eval, best_save_path
         if is_best:
-            logging.info("- Found new best accuracy")
+            logging.info("- Found new best F1 score")
             best_val_acc = val_acc
 
             # Save best val metrics in a json file in the model directory

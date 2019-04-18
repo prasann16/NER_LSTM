@@ -5,6 +5,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import os
+from sklearn.metrics import f1_score as f
 
 data_dir = "data/small"
 
@@ -190,9 +191,58 @@ def accuracy(outputs, labels):
     # compare outputs with labels and divide by number of tokens (excluding PADding tokens)
     return np.sum(outputs==labels)/float(np.sum(mask))
 
+def f1_score(outputs, labels):
+    """
+    Compute the f1 score, given the outputs and labels for all tokens. Exclude PADding terms.
+
+    Args:
+        outputs: (np.ndarray) dimension batch_size*seq_len x num_tags - log softmax output of the model
+        labels: (np.ndarray) dimension batch_size x seq_len where each element is either a label in
+                [0, 1, ... num_tag-1], or -1 in case it is a PADding token.
+
+    Returns: (float) f1 score in [0,1]
+    """
+
+    # reshape labels to give a flat vector of length batch_size*seq_len
+    labels = labels.ravel()
+
+    # since PADding tokens have label -1, we can generate a mask to exclude the loss from those terms
+    mask = (labels >= 0)
+
+    # np.argmax gives us the class predicted for each token by the model
+    outputs = np.argmax(outputs, axis=1)
+
+    # compare outputs with labels and divide by number of tokens (excluding PADding tokens)
+    return f(labels, outputs, average='weighted',labels=np.unique(outputs))
+
+def precision(outputs, labels):
+    """
+    Compute the precision, given the outputs and labels for all tokens. Exclude PADding terms.
+
+    Args:
+        outputs: (np.ndarray) dimension batch_size*seq_len x num_tags - log softmax output of the model
+        labels: (np.ndarray) dimension batch_size x seq_len where each element is either a label in
+                [0, 1, ... num_tag-1], or -1 in case it is a PADding token.
+
+    Returns: (float) precision in [0,1]
+    """
+
+    # reshape labels to give a flat vector of length batch_size*seq_len
+    labels = labels.ravel()
+
+    # since PADding tokens have label -1, we can generate a mask to exclude the loss from those terms
+    mask = (labels >= 0)
+
+    # np.argmax gives us the class predicted for each token by the model
+    outputs = np.argmax(outputs, axis=1)
+
+    # compare outputs with labels and divide by number of tokens (excluding PADding tokens)
+    return np.sum(outputs==labels)/float(np.sum(mask))
+
 
 # maintain all metrics required in this dictionary- these are used in the training and evaluation loops
 metrics = {
     'accuracy': accuracy,
+    'f1_score':f1_score
     # could add more metrics such as accuracy for each token type
 }
