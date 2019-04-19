@@ -54,12 +54,13 @@ utils.load_checkpoint(os.path.join(args.model_dir, args.restore_file + '.pth.tar
 
 # set model to evaluation mode
 model.eval()
-# sentence = input("Type a sentence.... ")
-sentence = "breaking news"
+print("")
+sentence = input("Type a query: \n")
+print("")
+# sentence = "breaking the news"
 sen_list = word_tokenize(sentence.lower())
 
 batch_data = pad_ind*np.ones((1, len(sen_list)))
-
 
 # sen_num_list = []
 for i in range(len(sen_list)):
@@ -71,6 +72,15 @@ for i in range(len(sen_list)):
 batch_data = torch.LongTensor(batch_data)
 # print(batch_data)
 outputs = model(batch_data)
-#
+# Getting the top label for each word
 outputs = np.argmax(outputs.detach(), axis=1)
-print(outputs)
+output_np = outputs.numpy()
+
+tags_path = os.path.join(args.data_dir, 'tags.txt')
+tag_map = []
+with open(tags_path) as f:
+    for i, t in enumerate(f.read().splitlines()):
+        tag_map.append(t)
+
+for i in range(len(output_np)):
+    print(sen_list[i]+"\t"+tag_map[output_np[i]])
