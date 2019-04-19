@@ -6,7 +6,7 @@ import sys
 import torch
 from torch.autograd import Variable
 
-import utils 
+import utils
 
 
 class DataLoader(object):
@@ -27,19 +27,19 @@ class DataLoader(object):
         # loading dataset_params
         json_path = os.path.join(data_dir, 'dataset_params.json')
         assert os.path.isfile(json_path), "No json file found at {}, run build_vocab.py".format(json_path)
-        self.dataset_params = utils.Params(json_path)        
-        
+        self.dataset_params = utils.Params(json_path)
+
         # loading vocab (we require this to map words to their indices)
         vocab_path = os.path.join(data_dir, 'words.txt')
         self.vocab = {}
         with open(vocab_path) as f:
             for i, l in enumerate(f.read().splitlines()):
                 self.vocab[l] = i
-        
+
         # setting the indices for UNKnown words and PADding symbols
         self.unk_ind = self.vocab[self.dataset_params.unk_word]
         self.pad_ind = self.vocab[self.dataset_params.pad_word]
-                
+
         # loading tags (we require this to map tags to their indices)
         tags_path = os.path.join(data_dir, 'tags.txt')
         self.tag_map = {}
@@ -68,16 +68,16 @@ class DataLoader(object):
             for sentence in f.read().splitlines():
                 # replace each token by its index if it is in vocab
                 # else use index of UNK_WORD
-                s = [self.vocab[token] if token in self.vocab 
+                s = [self.vocab[token] if token in self.vocab
                      else self.unk_ind
                      for token in sentence.split(' ')]
                 sentences.append(s)
-        
+
         with open(labels_file) as f:
             for sentence in f.read().splitlines():
                 # replace each label by its index
                 l = [self.tag_map[label] for label in sentence.split(' ')]
-                labels.append(l)        
+                labels.append(l)
 
         # checks to ensure there is a tag for each token
         assert len(labels) == len(sentences)
@@ -102,7 +102,7 @@ class DataLoader(object):
 
         """
         data = {}
-        
+
         for split in ['train', 'val', 'test']:
             if split in types:
                 sentences_file = os.path.join(data_dir, split, "sentences.txt")
@@ -163,5 +163,5 @@ class DataLoader(object):
 
             # convert them to Variables to record operations in the computational graph
             batch_data, batch_labels = Variable(batch_data), Variable(batch_labels)
-    
+
             yield batch_data, batch_labels
