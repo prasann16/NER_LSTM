@@ -10,3 +10,36 @@
 2019-04-18 19:45:46,030:INFO: - done.
 2019-04-18 19:45:46,235:INFO: Starting evaluation
 2019-04-18 19:45:46,331:INFO: - Eval metrics : accuracy: 0.884 ; f1_score: 0.813 ; loss: 0.377
+2019-04-18 20:01:08,900:INFO: Creating the dataset...
+2019-04-18 20:01:08,909:INFO: - done.
+2019-04-18 20:01:09,128:INFO: Starting evaluation
+2019-04-18 20:03:21,288:INFO: Creating the dataset...
+2019-04-18 20:03:21,299:INFO: - done.
+2019-04-18 20:03:21,514:INFO: Starting evaluation
+2019-04-18 20:03:21,792:INFO: - Eval metrics : accuracy: 0.904 ; f1_score: 0.812 ; loss: 0.340
+2019-04-19 01:24:33,746:INFO: Creating the dataset...
+2019-04-19 01:24:33,753:INFO: - done.
+2019-04-19 01:24:33,961:INFO: Starting evaluation
+2019-04-19 01:26:10,638:INFO: Creating the dataset...
+2019-04-19 01:26:10,647:INFO: - done.
+2019-04-19 01:26:10,859:INFO: Starting evaluation
+2019-04-19 01:26:11,139:INFO: - Eval metrics : f1_score: 0.783 ; accuracy: 0.912 ; loss: 0.372
+2019-04-19 01:26:52,486:INFO: Creating the dataset...
+2019-04-19 01:26:52,494:INFO: - done.
+2019-04-19 01:26:52,706:INFO: Starting evaluation
+2019-04-19 01:37:55,162:INFO: Creating the dataset...
+2019-04-19 01:37:55,170:INFO: - done.
+2019-04-19 01:37:55,386:INFO: Starting evaluation
+2019-04-19 01:37:55,669:INFO: - Eval metrics : f1_score: 0.783 ; accuracy: 0.912 ; loss: 0.372
+2019-04-19 01:38:40,043:INFO: Creating the dataset...
+2019-04-19 01:38:40,051:INFO: - done.
+2019-04-19 01:38:40,266:INFO: Starting evaluation
+2019-04-19 01:38:40,519:INFO: - Eval metrics : f1_score: 0.783 ; accuracy: 0.912 ; loss: 0.372
+2019-04-19 01:40:06,625:INFO: Creating the dataset...
+2019-04-19 01:40:06,635:INFO: - done.
+2019-04-19 01:40:06,836:INFO: Starting evaluation
+2019-04-19 01:40:06,998:INFO: - Eval metrics : f1_score: 0.828 ; accuracy: 0.915 ; loss: 0.332
+2019-04-19 01:41:07,064:INFO: Creating the dataset...
+2019-04-19 01:41:07,070:INFO: - done.
+2019-04-19 01:41:07,272:INFO: Starting evaluation
+2019-04-19 01:41:07,548:INFO: - Eval metrics : f1_score: 0.601 ; accuracy: 0.765 ; loss: 0.772

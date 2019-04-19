@@ -6,6 +6,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 import os
 from sklearn.metrics import f1_score as f
+from sklearn.metrics import precision_score
+from sklearn.metrics import recall_score
 
 data_dir = "data/small"
 
@@ -43,10 +45,10 @@ class Net(nn.Module):
 
         # the LSTM takes as input the size of its input (embedding_dim), its hidden size
         # for more details on how to use it, check out the documentation
-        self.lstm = nn.LSTM(params.embedding_dim, params.lstm_hidden_dim,num_layers=1, dropout=0.2, batch_first=True)
+        self.lstm = nn.LSTM(params.embedding_dim, params.lstm_hidden_dim,num_layers=2, dropout=0.2, batch_first=True,bidirectional=True)
 
         # the fully connected layer transforms the output to give the final output layer
-        self.fc = nn.Linear(params.lstm_hidden_dim, params.number_of_tags)
+        self.fc = nn.Linear(params.lstm_hidden_dim*2, params.number_of_tags)
 
     def forward(self, s):
         """
@@ -212,7 +214,6 @@ def f1_score(outputs, labels):
     # np.argmax gives us the class predicted for each token by the model
     outputs = np.argmax(outputs, axis=1)
 
-    # compare outputs with labels and divide by number of tokens (excluding PADding tokens)
     return f(labels, outputs, average='weighted',labels=np.unique(outputs))
 
 def precision(outputs, labels):
@@ -236,13 +237,37 @@ def precision(outputs, labels):
     # np.argmax gives us the class predicted for each token by the model
     outputs = np.argmax(outputs, axis=1)
 
-    # compare outputs with labels and divide by number of tokens (excluding PADding tokens)
-    return np.sum(outputs==labels)/float(np.sum(mask))
+    return precision_score(labels, outputs, average='weighted',labels=np.unique(outputs))
+
+def recall(outputs, labels):
+    """
+    Compute the recall, given the outputs and labels for all tokens. Exclude PADding terms.
+
+    Args:
+        outputs: (np.ndarray) dimension batch_size*seq_len x num_tags - log softmax output of the model
+        labels: (np.ndarray) dimension batch_size x seq_len where each element is either a label in
+                [0, 1, ... num_tag-1], or -1 in case it is a PADding token.
+
+    Returns: (float) recall in [0,1]
+    """
+
+    # reshape labels to give a flat vector of length batch_size*seq_len
+    labels = labels.ravel()
+
+    # since PADding tokens have label -1, we can generate a mask to exclude the loss from those terms
+    mask = (labels >= 0)
+
+    # np.argmax gives us the class predicted for each token by the model
+    outputs = np.argmax(outputs, axis=1)
+
+    return recall_score(labels, outputs, average='weighted',labels=np.unique(outputs))
 
 
 # maintain all metrics required in this dictionary- these are used in the training and evaluation loops
 metrics = {
-    'accuracy': accuracy,
-    'f1_score':f1_score
+    'f1_score':f1_score,
+    # 'precision': precision,
+    # 'recall':recall,
+    'accuracy': accuracy
     # could add more metrics such as accuracy for each token type
 }

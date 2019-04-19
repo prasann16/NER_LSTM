@@ -136,6 +136,15 @@ def load_checkpoint(checkpoint, model, optimizer=None):
     if not os.path.exists(checkpoint):
         raise ("File doesn't exist {}".format(checkpoint))
     checkpoint = torch.load(checkpoint)
+    # state_dict = checkpoint['state_dict']
+    # # create new OrderedDict that does not contain `module.`
+    # from collections import OrderedDict
+    # new_state_dict = OrderedDict()
+    # for k, v in state_dict.items():
+    #     name = k[7:] # remove `module.`
+    #     new_state_dict[name] = v
+    # # load params
+    # model.load_state_dict(new_state_dict)
     model.load_state_dict(checkpoint['state_dict'])
 
     if optimizer:
