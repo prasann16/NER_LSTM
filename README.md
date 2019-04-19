@@ -10,11 +10,11 @@ Type a query and press enter. Type "exit" to exit.
 
 ## Requirements
 
-Python 3
-nltk
-numpy
-torch
-sklearn
+- Python 3
+- nltk
+- numpy
+- torch
+- sklearn
 
 ## Task
 
