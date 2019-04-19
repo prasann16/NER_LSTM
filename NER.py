@@ -7,15 +7,15 @@ import utils
 import model.net as net
 import os
 from nltk.tokenize import word_tokenize
-# import nltk
-# nltk.download('punkt')
-
+import nltk
+nltk.download('punkt')
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--data_dir', default='data/small', help="Directory containing the dataset")
 parser.add_argument('--model_dir', default='experiments/base_model', help="Directory containing params.json")
 parser.add_argument('--restore_file', default='best', help="name of the file in --model_dir \
                      containing weights to load")
+
 
 # Load the parameters
 args = parser.parse_args()
@@ -52,35 +52,38 @@ model = net.Net(params)
 
 utils.load_checkpoint(os.path.join(args.model_dir, args.restore_file + '.pth.tar'), model)
 
-# set model to evaluation mode
-model.eval()
-print("")
-sentence = input("Type a query: \n")
-print("")
-# sentence = "breaking the news"
-sen_list = word_tokenize(sentence.lower())
+sentence = ""
+while(sentence!="exit"):
+    print("")
+    sentence = input("Type a query: \n")
+    print("")
 
-batch_data = pad_ind*np.ones((1, len(sen_list)))
+    # set model to evaluation mode
+    model.eval()
+    # sentence = "breaking the news"
+    sen_list = word_tokenize(sentence.lower())
 
-# sen_num_list = []
-for i in range(len(sen_list)):
-    word = sen_list[i]
-    try:
-        batch_data[0][i] = vocab[word]
-    except:
-        batch_data[0][i] = vocab['UNK']
-batch_data = torch.LongTensor(batch_data)
-# print(batch_data)
-outputs = model(batch_data)
-# Getting the top label for each word
-outputs = np.argmax(outputs.detach(), axis=1)
-output_np = outputs.numpy()
+    batch_data = pad_ind*np.ones((1, len(sen_list)))
 
-tags_path = os.path.join(args.data_dir, 'tags.txt')
-tag_map = []
-with open(tags_path) as f:
-    for i, t in enumerate(f.read().splitlines()):
-        tag_map.append(t)
+    # sen_num_list = []
+    for i in range(len(sen_list)):
+        word = sen_list[i]
+        try:
+            batch_data[0][i] = vocab[word]
+        except:
+            batch_data[0][i] = vocab['UNK']
+    batch_data = torch.LongTensor(batch_data)
+    # print(batch_data)
+    outputs = model(batch_data)
+    # Getting the top label for each word
+    outputs = np.argmax(outputs.detach(), axis=1)
+    output_np = outputs.numpy()
 
-for i in range(len(output_np)):
-    print(sen_list[i]+"\t"+tag_map[output_np[i]])
+    tags_path = os.path.join(args.data_dir, 'tags.txt')
+    tag_map = []
+    with open(tags_path) as f:
+        for i, t in enumerate(f.read().splitlines()):
+            tag_map.append(t)
+
+    for i in range(len(output_np)):
+        print(sen_list[i]+"\t"+tag_map[output_np[i]])
