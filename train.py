@@ -13,6 +13,8 @@ import utils
 import model.net as net
 from model.data_loader import DataLoader
 from evaluate import evaluate
+# import warnings
+# warnings.filterwarnings("ignore")
 
 
 parser = argparse.ArgumentParser()

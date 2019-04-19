@@ -47,3 +47,15 @@
 2019-04-19 02:48:47,771:INFO: - done.
 2019-04-19 02:48:47,985:INFO: Starting evaluation
 2019-04-19 02:48:48,308:INFO: - Eval metrics : f1_score: 0.866 ; accuracy: 0.967 ; loss: 0.132
+2019-04-19 18:20:12,708:INFO: Creating the dataset...
+2019-04-19 18:20:12,714:INFO: - done.
+2019-04-19 18:20:12,923:INFO: Starting evaluation
+2019-04-19 18:20:13,494:INFO: - Eval metrics : f1_score: 0.861 ; precision: 0.819 ; recall: 0.973 ; loss: 0.128
+2019-04-19 18:20:33,693:INFO: Creating the dataset...
+2019-04-19 18:20:33,701:INFO: - done.
+2019-04-19 18:20:33,907:INFO: Starting evaluation
+2019-04-19 18:20:34,398:INFO: - Eval metrics : f1_score: 0.861 ; precision: 0.819 ; recall: 0.973 ; loss: 0.128
+2019-04-19 19:09:51,198:INFO: Creating the dataset...
+2019-04-19 19:09:51,206:INFO: - done.
+2019-04-19 19:09:51,421:INFO: Starting evaluation
+2019-04-19 19:09:51,775:INFO: - Eval metrics : f1_score: 0.860 ; precision: 0.821 ; recall: 0.965 ; loss: 0.135

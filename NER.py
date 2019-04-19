@@ -55,7 +55,7 @@ utils.load_checkpoint(os.path.join(args.model_dir, args.restore_file + '.pth.tar
 sentence = ""
 while(sentence!="exit"):
     print("")
-    sentence = input("Type a query: \n")
+    sentence = input("Type a query (type 'exit' to exit): \n")
     print("")
 
     # set model to evaluation mode

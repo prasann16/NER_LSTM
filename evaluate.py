@@ -9,8 +9,8 @@ import torch
 import utils
 import model.net as net
 from model.data_loader import DataLoader
-# import warnings
-# warnings.filterwarnings("ignore")
+import warnings
+warnings.filterwarnings("ignore")
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--data_dir', default='data/small', help="Directory containing the dataset")
