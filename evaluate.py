@@ -9,6 +9,8 @@ import torch
 import utils
 import model.net as net
 from model.data_loader import DataLoader
+from sklearn.metrics import classification_report
+
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -111,5 +113,6 @@ if __name__ == '__main__':
     # Evaluate
     num_steps = (params.test_size + 1) // params.batch_size
     test_metrics = evaluate(model, loss_fn, test_data_iterator, metrics, params, num_steps)
+    # target_names = ['B-NEWSTYPE','I-NEWSTYPE','O','B-KEYWORDS','I-KEYWORDS','B-PROVIDER','I-PROVIDER','B-SECTION','I-SECTION']
     save_path = os.path.join(args.model_dir, "metrics_test_{}.json".format(args.restore_file))
     utils.save_dict_to_json(test_metrics, save_path)

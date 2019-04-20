@@ -2,7 +2,7 @@
 
 *Author: Prasann Pandya*
 
-## To try, Run
+## To try the model, Run
 ```
 python NER.py
 ```
@@ -30,9 +30,13 @@ B-NEWSTYPE  I-NEWSTYPE  O    O  B-KEYWORDS I-KEYWORDS
 1. __Setting Parameters__ The `experiments` directory contains a file `params.json` which sets the hyperparameters for the experiment. It looks like
 ```json
 {
-    "learning_rate": 1e-3,
-    "batch_size": 5,
-    "num_epochs": 2
+    "learning_rate": 1e-2,
+    "batch_size": 10,
+    "num_epochs": 20,
+    "lstm_hidden_dim": 300,
+    "embedding_dim": 300,
+    "num_layers":2,
+    "save_summary_steps": 100
 }
 ```
 
@@ -57,6 +61,7 @@ python synthesize_results.py --parent_dir experiments/learning_rate
 ```
 python evaluate.py --data_dir data/small --model_dir experiments/base_model
 ```
+Note: The best model after training is saved under experiments/base_model as "best.pth.tar"
 
 ## Information on the files
 - `model/model.py` contains the neural network architecture, loss function and metrics
@@ -65,3 +70,5 @@ python evaluate.py --data_dir data/small --model_dir experiments/base_model
 - `evaluate.py` for testing the model
 - `search_hyperparams.py` for searching hyperparameters
 - `utils.py` for saving and leading model checkpoint
+- `model/model.py` contains the neural network architecture, loss function and metrics
+- `build_vocab.py` to build vocabulary and parameters for the dataset

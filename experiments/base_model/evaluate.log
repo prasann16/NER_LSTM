@@ -59,3 +59,7 @@
 2019-04-19 19:09:51,206:INFO: - done.
 2019-04-19 19:09:51,421:INFO: Starting evaluation
 2019-04-19 19:09:51,775:INFO: - Eval metrics : f1_score: 0.860 ; precision: 0.821 ; recall: 0.965 ; loss: 0.135
+2019-04-19 19:52:37,816:INFO: Creating the dataset...
+2019-04-19 19:52:37,823:INFO: - done.
+2019-04-19 19:52:38,060:INFO: Starting evaluation
+2019-04-19 19:52:39,125:INFO: - Eval metrics : f1_score: 0.885 ; precision: 0.857 ; recall: 0.970 ; loss: 0.131
