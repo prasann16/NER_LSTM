@@ -72,3 +72,5 @@ Note: The best model after training is saved under experiments/base_model as "be
 - `utils.py` for saving and leading model checkpoint
 - `model/model.py` contains the neural network architecture, loss function and metrics
 - `build_vocab.py` to build vocabulary and parameters for the dataset
+
+Reference: https://cs230-stanford.github.io/pytorch-nlp.html
